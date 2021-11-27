@@ -1,7 +1,23 @@
 #include <iostream>
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+/* Proyecto II - Estructura de Datos C++*/
+/* Universidad Castro Carazo - Estructura de Datos 
+ 	Estudiantes: 
+		Jose Ureña Aguilar
+		Abel Abarca Jimenez 
+*/
 
-int main(int argc, char** argv) {
+int main() {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	return 0;
 }
