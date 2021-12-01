@@ -41,22 +41,58 @@ void imprimir(Tlista inicio)
 		cout<<' '<<i+1 <<")Telefono: "<< puntero->tef<<endl;
 		cout<<' '<<i+1 <<")Nombre: "<< puntero->nombre<<endl;
 		cout<<' '<<i+1 <<")Empresa: "<< puntero->empresa<<endl;
-		cout<<' '<<i+1 <<")Fecha Nacimiento: "<< puntero->empresa<<endl;
+		cout<<' '<<i+1 <<")Fecha Nacimiento: "<< puntero->fecha<<endl;
 		puntero=puntero->sgte;
 		i++;
 	}
 }
-
-
+void eliminarcontacto (Tlista &inicio, int telef)
+{
+	Tlista ptr,ant;
+	int i=1, bandera=0;
+	ptr=inicio;
+	if(ptr->tef==telef)
+	{
+	 	inicio=ptr->sgte;
+		delete(ptr);
+	 	bandera=1;
+	}
+	else
+	{
+		ant=NULL;
+		ptr=inicio;
+		while (ptr->sgte!=NULL && ptr->tef!=telef)
+		{
+     		ant=ptr;
+	 		ptr=ptr->sgte;
+		}
+		if(ptr->sgte==NULL)
+		{
+			delete(ptr);
+			ant->sgte=NULL;
+			bandera=1;
+		}
+		else
+		{
+			ant->sgte=ptr->sgte;
+			delete(ptr);
+			bandera=1;
+		}
+		
+	    if(bandera==0)
+	      cout<<"\n\n Contacto no encontrado...!"<<endl;
+    }
+}
 
 void menu1()
 {
     cout<<"\n\t\t Nuestra agenda Telefonica  \n\n";
     cout<<" 1. Ingresar Contacto                "<<endl;
     cout<<" 2. Borrar Contacto                  "<<endl;
-    cout<<" 3. Modificar Contacto               "<<endl;
-    cout<<" 4. Consultar                        "<<endl;
-    cout<<" 5. Salir							"<<endl;
+    cout<<" 3. Imprimir Agenda                  "<<endl;
+    cout<<" 4. Modificar Contacto               "<<endl;
+    cout<<" 5. Consultar                        "<<endl;
+    cout<<" 6. Salir							"<<endl;
  
     cout<<"\n INGRESE OPCION: ";
 }
@@ -85,10 +121,21 @@ int main()
                  insertar(inicio, telefdato, nombredato, empresadato, fechadato);
             break;
             case 2:
-                
+               if (inicio==NULL)
+            	    cout<< "\n La lista esta vacía ....."<<endl;
+            	else
+            	{
+            		cout<< "\n Telefono a eliminar: ";cin>> telefdato;
+                	eliminarcontacto(inicio,telefdato);
+				}      
             break;
             case 3:
-  				imprimir(inicio);               
+            	if (inicio==NULL)
+            	    cout<< "\n La lista esta vacia ....."<<endl;
+            	else
+            	{
+                	imprimir(inicio);
+				}                
             break;
             case 4:
                  
@@ -98,7 +145,7 @@ int main()
         cout<<endl<<endl;
         system("pause");  system("cls");
  
-    }while(op!=5);
+    }while(op!=6);
   
    system("pause");
    return 0;
