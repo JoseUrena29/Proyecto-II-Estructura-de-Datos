@@ -50,10 +50,10 @@ void eliminarcontacto (Tlista &inicio, int telef)
 {
 	Tlista ptr,ant;
 	int i=1, bandera=0;
-	ptr=inicio;
 	if(ptr->tef==telef)
 	{
-	 	inicio=ptr->sgte;
+	 	ptr=inicio;
+		inicio=ptr->sgte;
 		delete(ptr);
 	 	bandera=1;
 	}
