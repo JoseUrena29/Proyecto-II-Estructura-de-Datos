@@ -122,7 +122,7 @@ int main()
             break;
             case 2:
                if (inicio==NULL)
-            	    cout<< "\n La lista esta vacía ....."<<endl;
+            	    cout<< "\n No hay numeros en la agenda ....."<<endl;
             	else
             	{
             		cout<< "\n Telefono a eliminar: ";cin>> telefdato;
@@ -131,7 +131,7 @@ int main()
             break;
             case 3:
             	if (inicio==NULL)
-            	    cout<< "\n La lista esta vacia ....."<<endl;
+            	    cout<< "\n No hay numeros en la agenda ......"<<endl;
             	else
             	{
                 	imprimir(inicio);
