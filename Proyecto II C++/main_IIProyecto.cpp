@@ -11,7 +11,7 @@
 */
 using namespace std;
 struct nodo{
-       int tef;
+       int tef,opcion;
 	   string nombre;              
 	   string empresa;
 	   string fecha;        
@@ -99,7 +99,7 @@ void menu1()
 int main()
 {
     Tlista inicio = NULL;
-    int op;     
+    int op,opcion;     
     int telefdato;  
     string nombredato;
     string empresadato;
@@ -138,8 +138,41 @@ int main()
 				}                
             break;
             case 4:
-                 
-            break;		   
+            
+			break;
+			
+			case 5:
+			//// Consultar contacto-----
+                 do{
+				system("cls");
+				cout<< "\n\t CONSULTAR CONTACTO\n"<<endl;
+				cout<< " 1.  Por numero de telefono                        "<<endl;
+				cout<< " 2.  Por nombre de contacto                        "<<endl;
+				cout<< " 3.  Por nombre de empresa                         "<<endl;
+				cout<< " 4.  Por cumpleaños                                "<<endl;
+				cout<< " 5.  Volver                                        "<<endl;
+				cout<<"\n";
+				cout<< " \n Ingrese una opcion: ";
+				cin >> opcion;
+				
+					
+				switch(opcion){
+						
+					case 1:	
+					break;
+
+					case 2:
+						
+					break;
+						
+					case 3:
+					break;
+					
+					case 4:	
+					break;                                 
+				}
+			}while (opcion != 5);
+			break;		   
     	 }
  
         cout<<endl<<endl;
