@@ -192,13 +192,42 @@ void imprimir(Tlista inicio)
 
 //OPCION #4 - Modificar Contacto
 
+void buscar_modificar (Tlista &inicio, int telef, string nom, string empre, string fech)
+{
+	Tlista ptr;
+	int bandera=0;
+	int buscar = 0;
+	ptr=inicio;
+	while (ptr!=NULL)
+	{
+		if (ptr->telefono==telef)
+		{ 
+			cout<<"\n";
+			cout<<"\n    Telefono SI se encuentra en la lista!"<<endl;
+			cout<< "\n Ingresar el nuevo numero telefonico: ";
+			cin >> ptr->telefono;
+			
+			cout<<"\n";
+			cout<<"\n    Numero Telefonico Modificado!!"<<endl;
+			bandera=1;
+		}
+		ptr=ptr->sgte;	
+	}
+	if (bandera==0)
+	{
+		cout<<"\n";
+		cout<<"\n    Telefono NO se encuentra en la lista...!"<<endl;
+	}
+}
 //OPCION #5 - Consultar Contacto
 //FUNCIONES SUB-MENU CONSULTAS
 
 
 void menu1()
 {	
-    cout<<"\n\t\t + - - - - - - AGENDA TELEFONICA - - - - - - +  \n\n";
+	cout << "\n\t\t|--------------------------------------|";
+	cout << "\n\t\t|        ° AGENDA TELEFONICA °         |";
+	cout << "\n\t\t|--------------------------------------|\n\n";
     cout<<" 1. Ingresar Contacto                "<<endl;
     cout<<" 2. Borrar Contacto                  "<<endl;
     cout<<" 3. Imprimir Agenda                  "<<endl;
@@ -206,7 +235,7 @@ void menu1()
     cout<<" 5. Consultar                        "<<endl;
     cout<<" 6. Salir							"<<endl;
  
-    cout<<"\n INGRESE UNA OPCION: ";
+    cout<<"\n Ingrese una opcion: ";
 }
 int main()
 {
@@ -236,7 +265,6 @@ int main()
             	{
             		cout<< "\n Telefono a eliminar: ";cin>> telefdato;
             		buscar_eliminar(inicio, telefdato);
-                	//eliminarcontacto(inicio,telefdato);
 				}    
             break;
             case 3:
@@ -252,7 +280,8 @@ int main()
             	    cout<< "\n La agenda se encuentra vacia .....!"<<endl;
             	else
             	{
-                 	
+                    cout<< "\n Telefono a modificar: ";cin>> telefdato;
+            		buscar_modificar(inicio, telefdato, nombredato, empresadato, fechadato);	
 				}
 			break;
 			
@@ -260,7 +289,10 @@ int main()
 			// SUB-MENU Consultar contacto
                  do{
 				system("cls");
-				cout<< "\n\t CONSULTAR CONTACTO\n"<<endl;
+				cout << "\n\t\t|--------------------------------------|";
+				cout << "\n\t\t|        ° AGENDA TELEFONICA °         |";
+				cout << "\n\t\t|--------------------------------------|\n\n";
+				cout<< "\n\t+- - - - - CONSULTAR CONTACTO - - - - -+\n"<<endl;
 				cout<< " 1.  Por numero de telefono                        "<<endl;
 				cout<< " 2.  Por nombre de contacto                        "<<endl;
 				cout<< " 3.  Por nombre de empresa                         "<<endl;
