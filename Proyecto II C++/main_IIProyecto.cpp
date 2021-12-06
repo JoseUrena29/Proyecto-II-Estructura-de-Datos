@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <fstream>
+#include <time.h>
 
 /* Proyecto II - Estructura de Datos C++*/
 /* Universidad Castro Carazo - Estructura de Datos 
@@ -14,10 +15,11 @@ struct nodo{
        int telefono,opcion;
 	   string nombre;              
 	   string empresa;
-	   string fecha;        
+	   string fecha;      
 	   struct nodo *sgte; 
 	   struct nodo *ant;
 };
+
 
 typedef struct nodo *Tlista;
 
@@ -66,6 +68,11 @@ void insertar(Tlista &inicio, int telef, string nom, string empre, string fech)
 void buscar_insertar (Tlista &inicio, int telef, string nom, string empre, string fech)
 {
 	Tlista ptr;
+	string dia;
+	string mes;
+	string annio;
+	string slash;
+	slash = "/";
 	int bandera=0;
 	ptr=inicio;
 	while (ptr!=NULL)
@@ -82,7 +89,11 @@ void buscar_insertar (Tlista &inicio, int telef, string nom, string empre, strin
 	{
 		cout<< "\n Ingresar nombre: "; cin>> nom;
         cout<< "\n Ingresar empresa: "; cin>> empre;
-        cout<< "\n Ingresar fecha de nacimiento: "; cin>> fech;
+        cout<< "\n Ingresar fecha de nacimiento: \n";
+        cout<<" Dia: ";cin>>dia;
+        cout<<" Mes: ";cin>>mes;
+        cout<<" Año: ";cin>>annio;
+        fech=dia+slash+mes+slash+annio;
 	 	insertar(inicio,telef,nom,empre,fech);
 	 	cout<<"\n";
 	 	cout<<"\n    Telefono agregado a la lista!"<<endl;
@@ -184,7 +195,7 @@ void imprimir(Tlista inicio)
 		cout<<' '<<i+1 <<")  Telefono: "<< puntero->telefono<<endl;
 		cout<<"     Nombre: "<< puntero->nombre<<endl;
 		cout<<"     Empresa: "<< puntero->empresa<<endl;
-		cout<<"     Fecha Nacimiento: "<< puntero->fecha<<endl;
+		cout<<"     Fecha Nacimiento: "<<puntero->fecha<<endl;
 		puntero=puntero->sgte;
 		i++;
 	}
@@ -309,10 +320,61 @@ void consulta_empresa (Tlista &inicio, int telef, string nom, string empre, stri
 }
 
 //OPCION #4 - Consultar Contacto - Cumpleaños
-
+void consulta_cumple (Tlista &inicio, int telef, string nom, string empre, string fech)
+{
+	struct fecha {
+	int dia, mes, anio;
+	};	
+	
+	time_t tiempoahora;
+	time(&tiempoahora);
+	cout<<"\n Fecha Actual: 0", ctime(&tiempoahora);
+    
+	struct tm *mytime = localtime(&tiempoahora);
+	printf("%d/%d/%d", mytime->tm_mday, mytime->tm_mon+1,mytime->tm_year+1900);
+	
+	fecha cumple;
+	cout<<"\n\n";
+	cout<<" Ingrese su fecha de cumpleaños: "<<endl;
+	cout<<" Dia: "; cin >>cumple.dia;
+	cout<<" Mes: "; cin >>cumple.mes;
+	
+	Tlista ptr;
+	int bandera=0;
+	int i=0;
+	ptr=inicio;
+	//while (ptr!=NULL)
+	//{
+		if (cumple.dia == mytime->tm_mday && cumple.mes == mytime->tm_mon+1)
+		{ 
+			cout<<"\n";
+			cout<<"\n\t* * * * * FELIZ CUMPLEAÑOS!!! * * * * * \n"<<endl;
+			
+			//cout<<"     Nombre: "<< ptr->nombre<<endl;
+			//cout<<"     Empresa: "<< ptr->empresa<<endl;
+			//cout<<"     Fecha Nacimiento: "<< ptr->fecha<<endl;
+			bandera=1;
+		}
+		//ptr=ptr->sgte;
+		//i++;	
+	//}
+	if (bandera==0)
+	{
+		cout<<"\n";
+		cout<<"\n    No hay cumpleañeros en la lista para el dia de hoy...!"<<endl;
+	}
+}
 
 void menu1()
 {	
+	time_t tiempoahora;
+	time(&tiempoahora);
+	cout<<"\n Fecha Actual: 0", ctime(&tiempoahora);
+    
+	struct tm *mytime = localtime(&tiempoahora);
+	printf("%d/%d/%d", mytime->tm_mday, mytime->tm_mon+1,mytime->tm_year+1900);
+	cout<<"\n"<<endl;
+	
 	cout << "\n\t\t|--------------------------------------|";
 	cout << "\n\t\t|        ° AGENDA TELEFONICA °         |";
 	cout << "\n\t\t|--------------------------------------|\n\n";
@@ -333,7 +395,7 @@ int main()
     string nombredato;
     string empresadato;
     string fechadato;
-
+    	
     system("color 0b");
  
     do
@@ -386,6 +448,14 @@ int main()
 			
 				 do{
 				system("cls");
+				time_t tiempoahora;
+				time(&tiempoahora);
+				cout<<"\n Fecha Actual: 0", ctime(&tiempoahora);
+			    
+				struct tm *mytime = localtime(&tiempoahora);
+				printf("%d/%d/%d", mytime->tm_mday, mytime->tm_mon+1,mytime->tm_year+1900);
+				cout<<"\n"<<endl;
+
 				cout << "\n\t\t|--------------------------------------|";
 				cout << "\n\t\t|        ° AGENDA TELEFONICA °         |";
 				cout << "\n\t\t|--------------------------------------|\n\n";
@@ -441,8 +511,7 @@ int main()
 	            	    	cout<< "\n La agenda se encuentra vacia .....!"<<endl;
 		            	else
 		            	{
-		                 	
-		                 	
+		                 consulta_cumple(inicio, telefdato, nombredato, empresadato, fechadato);		
 						}
 					break;                                 
 				}
