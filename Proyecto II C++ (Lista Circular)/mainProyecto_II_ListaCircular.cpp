@@ -137,7 +137,7 @@ void buscarElemento(Tlista &inicio, int telef, string nom, string empre, string 
 }
 
 //OPCION #2 - Borrar Contacto
-void eliminarcontacto(Tlista &inicio, int telef)
+void buscar_eliminar(Tlista &inicio, int telef)
 {
     Tlista p;
     p = inicio;
@@ -297,8 +297,8 @@ do
             	    cout<< "\n La agenda se encuentra vacia .....!"<<endl;
             	else
             	{
-            		//cout<< "\n Telefono a eliminar: ";cin>> telefdato;
-            		//buscar_eliminar(inicio, telefdato);
+            		cout<< "\n Telefono a eliminar: ";cin>> telefdato;
+            		buscar_eliminar(inicio, telefdato);
 				}    
             break;
             
