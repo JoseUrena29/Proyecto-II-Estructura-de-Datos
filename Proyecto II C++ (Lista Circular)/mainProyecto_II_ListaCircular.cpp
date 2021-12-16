@@ -31,10 +31,10 @@ void insertar(Tlista &inicio, int telef, string nom, string empre, string fech)
 {
     Tlista aux,nuevo;
     nuevo = new(struct nodo);
-    nuevo->telefono=telef;
-	nuevo->nombre=nom;
-	nuevo->empresa=empre;
-	nuevo->fecha=fech;
+    nuevo->telefono = telef;
+    nuevo->nombre = nom;
+    nuevo->empresa = empre;
+    nuevo->fecha = fech;
     nuevo->sgte = NULL;
     nuevo->ant = NULL;
     
@@ -46,7 +46,7 @@ void insertar(Tlista &inicio, int telef, string nom, string empre, string fech)
     }
     else
     {
-    	if (telef < inicio->telefono)
+    	if (telef < inicio->telefono && nom < inicio->nombre && empre < inicio->empresa && fech < inicio->fecha  )
     	{
     		nuevo->sgte=inicio;
     		nuevo->ant=nuevo->sgte->ant;
@@ -57,11 +57,11 @@ void insertar(Tlista &inicio, int telef, string nom, string empre, string fech)
     	else
     	{
     	  aux=inicio;
-		  while (aux->sgte!=inicio && aux->telefono < telef)	
+		  while (aux->sgte!=inicio && aux->telefono < telef && aux->nombre < nom && aux->empresa < empre && aux->fecha < fech)	
 		  {
 		  aux=aux->sgte;
     	  }
-    	  if (aux->telefono>telef)
+    	  if (aux->telefono>telef && aux->nombre>nom  && aux->empresa>empre && aux->fecha >fech)
     	  {
     	  	nuevo->sgte=aux;
     	  	nuevo->ant=nuevo->sgte->ant;
@@ -83,11 +83,11 @@ void buscar_insertar (Tlista &inicio, int telef, string nom, string empre, strin
 {
 	Tlista encontrado = inicio;
 	int bandera=0;
-	//string dia;
-	//string mes;
-	//string annio;
-	//string slash;
-	//slash = "/";
+	string dia;
+	string mes;
+	string annio;
+	string slash;
+	slash = "/";
 	
 	while (encontrado->sgte!=inicio && bandera!=1)
 	{
@@ -100,19 +100,19 @@ void buscar_insertar (Tlista &inicio, int telef, string nom, string empre, strin
 		encontrado=encontrado->sgte;	
 	}
 	if (bandera==0)
-	//{
+	{
 		cout<<"\n    Telefono no encontrado!"<<endl;
-		//cout<< "\n Ingresar nombre: "; cin>> nom;
-        //cout<< "\n Ingresar empresa: "; cin>> empre;
-        //cout<< "\n Ingresar fecha de nacimiento: \n";
-        //cout<<" Dia: ";cin>>dia;
-        //cout<<" Mes: ";cin>>mes;
-        //cout<<" Año: ";cin>>annio;
-        //fech=dia+slash+mes+slash+annio;
+		cout<< "\n Ingresar nombre: "; cin>> nom;
+        cout<< "\n Ingresar empresa: "; cin>> empre;
+        cout<< "\n Ingresar fecha de nacimiento: \n";
+        cout<<" Dia: ";cin>>dia;
+        cout<<" Mes: ";cin>>mes;
+        cout<<" Año: ";cin>>annio;
+        fech=dia+slash+mes+slash+annio;
 	 	insertar(inicio,telef,nom,empre,fech);
-	 	//cout<<"\n";
-	 	//cout<<"\n    Telefono agregado a la lista!"<<endl;
-	//}
+	 	cout<<"\n";
+	 	cout<<"\n    Telefono agregado a la lista!"<<endl;
+	}
 }
 
 void buscarElemento(Tlista &inicio, int telef, string nom, string empre, string fech)
@@ -137,6 +137,55 @@ void buscarElemento(Tlista &inicio, int telef, string nom, string empre, string 
 }
 
 //OPCION #2 - Borrar Contacto
+void eliminarcontacto(Tlista &inicio, int telef)
+{
+    Tlista p;
+    p = inicio;
+    int i=0;
+    int bandera=0;
+    
+    if (inicio->telefono == telef)
+    {
+    	p->ant->sgte=p->sgte;
+    	p->sgte->ant=p->ant;
+    	if (p->sgte==inicio)
+    	{
+    		inicio=NULL;
+		}
+		else
+		{
+			inicio=p->sgte;
+		}
+    	delete(p);
+    	bandera=1;
+     	}
+    else
+    {
+	p=inicio;
+    while(p->sgte!=inicio && bandera!=1)
+    { 
+		if(p->telefono==telef)
+        {
+          p->ant->sgte= p->sgte;
+		  p->sgte->ant=p->ant; 
+		  delete(p);
+		  cout<<endl<<" Encontrada en la posición "<< i <<endl;
+          bandera = 1;
+        }
+        p = p->sgte;
+        i++;
+    }
+    }
+    if (p->telefono==telef && bandera!=1)
+    {
+    	p->sgte->ant=p->ant;
+    	p->ant->sgte=p->sgte;
+    	delete(p);
+    	bandera=1;
+	}
+    if(bandera==0)
+        cout<<"\n\n Numero no encontrado..!"<< endl;
+}
 
 
 
@@ -239,7 +288,7 @@ do
             case 1:
 				 cout<< "\n Ingresar telefono: "; cin>> telefdato;
                  buscar_insertar(inicio, telefdato, nombredato, empresadato, fechadato);
-                 //insertar(inicio, telefdato, nombredato, empresadato, fechadato);
+                 insertar(inicio, telefdato, nombredato, empresadato, fechadato);
             break;
             
             //OPCION #2 - Borrar Contacto
