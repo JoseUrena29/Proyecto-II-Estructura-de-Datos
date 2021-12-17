@@ -29,7 +29,8 @@ typedef struct nodo *Tlista;
 //OPCION #1 - Ingresar Contacto
 void insertar(Tlista &inicio, int telef, string nom, string empre, string fech)
 {
-    Tlista aux,nuevo;
+    Tlista aux,nuevo,encontrado;
+    int bandera=0;
     nuevo = new(struct nodo);
     nuevo->telefono = telef;
     nuevo->nombre = nom;
@@ -37,6 +38,7 @@ void insertar(Tlista &inicio, int telef, string nom, string empre, string fech)
     nuevo->fecha = fech;
     nuevo->sgte = NULL;
     nuevo->ant = NULL;
+    
     
     if ( inicio==NULL)
     {
@@ -46,6 +48,16 @@ void insertar(Tlista &inicio, int telef, string nom, string empre, string fech)
     }
     else
     {
+    	while (encontrado->sgte!=inicio && bandera!=1)
+	{
+		if (encontrado->telefono==telef)
+		{
+			cout<<"\n";
+	 		cout<<"\n    Telefono ya se encuentra en la lista...!"<<endl;	
+			bandera=1;
+		}
+		encontrado=encontrado->sgte;	
+	
     	if (telef < inicio->telefono && nom < inicio->nombre && empre < inicio->empresa && fech < inicio->fecha  )
     	{
     		nuevo->sgte=inicio;
@@ -76,6 +88,7 @@ void insertar(Tlista &inicio, int telef, string nom, string empre, string fech)
 		  	nuevo->ant->sgte=nuevo;
 		  }
 		}
+    }
     }    
 }
 
@@ -200,7 +213,7 @@ void imprimir(Tlista inicio)
    while (aux->sgte != inicio)
        {
        	cout<<"\n";
-		cout<<' '<<i <<")  Telefono: "<< aux->telefono<<endl;
+		cout<<' '<<i+1 <<")  Telefono: "<< aux->telefono<<endl;
 		cout<<"     Nombre: "<< aux->nombre<<endl;
 		cout<<"     Empresa: "<< aux->empresa<<endl;
 		cout<<"     Fecha Nacimiento: "<<aux->fecha<<endl;
@@ -209,7 +222,7 @@ void imprimir(Tlista inicio)
         }
     if (aux->sgte==inicio) 
         cout<<"\n";
-		cout<<' '<<i <<")  Telefono: "<< aux->telefono<<endl;
+		cout<<' '<<i+1 <<")  Telefono: "<< aux->telefono<<endl;
 		cout<<"     Nombre: "<< aux->nombre<<endl;
 		cout<<"     Empresa: "<< aux->empresa<<endl;
 		cout<<"     Fecha Nacimiento: "<<aux->fecha<<endl;
@@ -218,7 +231,32 @@ void imprimir(Tlista inicio)
 
 
 //OPCION #4 - Modificar Contacto
-
+void buscar_modificar (Tlista &inicio, int telef, string nom, string empre, string fech)
+{
+	Tlista ptr;
+	int bandera=0;
+	ptr=inicio;
+	while (ptr!=NULL)
+	{
+		if (ptr->telefono==telef)
+		{ 
+			cout<<"\n";
+			cout<<"\n    Telefono SI se encuentra en la lista!"<<endl;
+			cout<< "\n Ingresar el nuevo numero telefonico: ";
+			cin >> ptr->telefono;
+			
+			cout<<"\n";
+			cout<<"\n    Numero Telefonico Modificado!!"<<endl;
+			bandera=1;
+		}
+		ptr=ptr->sgte;	
+	}
+	if (bandera==0)
+	{
+		cout<<"\n";
+		cout<<"\n    Telefono NO se encuentra en la lista...!"<<endl;
+	}
+}
 
 
 
@@ -287,7 +325,10 @@ do
         	//OPCION #1 - Ingresar Contacto
             case 1:
 				 cout<< "\n Ingresar telefono: "; cin>> telefdato;
-                 buscar_insertar(inicio, telefdato, nombredato, empresadato, fechadato);
+                 cout<< "\n Ingresar nombre: "; cin>> nombredato;
+                 cout<< "\n Ingresar empresa: "; cin>> empresadato;
+                 cout<< "\n Ingresar fecha de nacimiento: "; cin>> fechadato;
+                 //buscar_insertar(inicio, telefdato, nombredato, empresadato, fechadato);
                  insertar(inicio, telefdato, nombredato, empresadato, fechadato);
             break;
             
@@ -318,8 +359,8 @@ do
             	    cout<< "\n La agenda se encuentra vacia .....!"<<endl;
             	else
             	{
-                    //cout<< "\n Telefono a modificar: ";cin>> telefdato;
-            		//buscar_modificar(inicio, telefdato, nombredato, empresadato, fechadato);	
+                    cout<< "\n Telefono a modificar: ";cin>> telefdato;
+            		buscar_modificar(inicio, telefdato, nombredato, empresadato, fechadato);	
 				}
 			break;
 			
