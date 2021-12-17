@@ -90,51 +90,33 @@ void buscarElemento(Tlista &inicio, int telef, string nom, string empre, string 
 	slash = "/";
  
  	if(inicio!=NULL)
-	 {
+	{
 	 	do
 	 	{
-	 		if(encontrado->telefono==telef)	
-	 		{
+	 		if (encontrado->telefono==telef)
+			{
 				cout<<"\n";
-		 		cout<<"\n    Telefono ya se encuentra en la lista...!"<<endl;
-	            bandera = 1;	
+		 		cout<<"\n    El Telefono " <<encontrado->telefono<< " ya se encuentra en la lista...!"<<endl;
+				bandera=1;
 			}
-	 		encontrado = encontrado->sgte;	
-		}while(encontrado!=inicio && bandera!=1);
+			encontrado=encontrado->sgte;
+			i++;
+					
+		}while (encontrado!=inicio && bandera!=1);
+	}
 		
-		if(bandera==0){
-			cout<<"\n    Telefono agregado a la lista!"<<endl;
-			
-		}		
-	 }
-	 
-	 
-	 
-    /*while(encontrado->sgte!=inicio && bandera!=1)
-    {
-        if(encontrado->telefono==telef)
-        {
-        	cout<<"\n";
-	 		cout<<"\n    Telefono ya se encuentra en la lista...!"<<endl;
-            bandera = 1;
-        }
-        encontrado = encontrado->sgte;
-        i++;
-    }
- 
-    if(bandera==0){
-    	cout<< "\n Ingresar nombre: "; cin>> nom;
+	if (bandera==0)
+	{	cout<< "\n Ingresar nombre: "; cin>> nom;
     	cout<< "\n Ingresar empresa: "; cin>> empre;
         cout<< "\n Ingresar fecha de nacimiento: \n";
         cout<<" Dia: ";cin>>dia;
         cout<<" Mes: ";cin>>mes;
         cout<<" Año: ";cin>>annio;
         fech=dia+slash+mes+slash+annio;
-        //insertar(inicio,telef,nom,empre,fech);
-        cout<<"\n";
+	 	insertar(inicio,telef,nom,empre,fech);
+	 	cout<<"\n";
 	 	cout<<"\n    Telefono agregado a la lista!"<<endl;
-	}*/
-
+	}
 }
 
 //OPCION #2 - Borrar Contacto
@@ -354,7 +336,7 @@ void consultanombre (Tlista &inicio, int telef, string nom, string empre, string
 			}
 	 		encontrado = encontrado->sgte;
 			i++;	
-		}while(encontrado!=inicio && bandera!=1);
+		}while(encontrado!=inicio);
 		
 		if(bandera==0){
 			cout<<"\n    Nombre NO se encuentra en la lista...!"<<endl;	
@@ -383,7 +365,7 @@ void consultaempresa (Tlista &inicio, int telef, string nom, string empre, strin
 			}
 	 		encontrado = encontrado->sgte;
 			i++;	
-		}while(encontrado!=inicio && bandera!=1);
+		}while(encontrado!=inicio);
 		
 		if(bandera==0){
 			cout<<"\n    Nombre NO se encuentra en la lista...!"<<endl;	
@@ -477,17 +459,7 @@ do
         	//OPCION #1 - Ingresar Contacto
             case 1:
 				cout<< "\n Ingresar telefono: "; cin>> telefdato;
-				cout<< "\n Ingresar nombre: "; cin>> nombredato;
-		    	cout<< "\n Ingresar empresa: "; cin>> empresadato;
-		        cout<< "\n Ingresar fecha de nacimiento: \n";
-		        cout<<" Dia: ";cin>>dia;
-		        cout<<" Mes: ";cin>>mes;
-		        cout<<" Año: ";cin>>annio;
-		        fechadato=dia+slash+mes+slash+annio;
-				insertar(inicio, telefdato, nombredato, empresadato, fechadato);
-                //buscarElemento(inicio, telefdato, nombredato, empresadato, fechadato);
-                 
-                 
+                buscarElemento(inicio, telefdato, nombredato, empresadato, fechadato);    
             break;
             
             //OPCION #2 - Borrar Contacto
